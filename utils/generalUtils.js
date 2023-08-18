@@ -1,0 +1,4 @@
+exports.getDataHora = () => {
+    return Date();
+}
+
