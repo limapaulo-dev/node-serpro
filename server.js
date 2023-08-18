@@ -1,16 +1,43 @@
-var http = require('http');
-var generalUtils = require('./utils/generalUtils');
+const express = require('express')
+const bodyParser = require('body-parser')
+
+const app = express();
+app.use(express.static('public'))
+app.use(bodyParser.urlencoded({extended:false}));
 
 
-http.createServer((req, res) => {
+app.get("/", (req, res) => {
 
-    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.sendFile(__dirname + "/public/index.html");
+    console.log("req http get index.html");
 
-    res.write("<h1>Aula inicial Node.js</h1>")
-    res.write("<p>" +generalUtils.getDataHora()+"</p>")
+});
 
-    res.end()
+app.get("/processar_dados", (req, res) => {
+    res.send(`Bem vindo: ${req.query.nome}, sua idade é:  ${req.query.idade}.`);
+});
 
-}).listen(8080);
+app.post("/processar_dados", (req, res) => {
+    response = {
+        nome: req.body.nome,
+        idade: req.body.idade
+    }
+    res.end(JSON.stringify(response))
 
+    console.log(req.body)
+});
+
+app.post("/login", (req, res) => {
+    response = {
+        nome: req.body.nome,
+        idade: req.body.idade
+    }
+    res.end(JSON.stringify(response))
+
+    console.log(req.body)
+});
+
+
+
+app.listen(8080);
 
