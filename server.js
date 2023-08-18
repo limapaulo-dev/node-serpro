@@ -1,11 +1,24 @@
 const express = require('express')
+const postgres = require('pg')
+
 const bodyParser = require('body-parser')
+const pgClient = require('./public/data/pgClient.json')
 const usersDB = require('./public/data/users.json')
 
 const app = express();
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended:false}));
 
+const client = new postgres.Client({
+    host: 'localhost',
+    port: 5432,
+    database: pgClient.dbname,
+    user: pgClient.username,
+    password: pgClient.password,
+});
+
+const conn = client.connect()
+console.log(conn)
 
 app.get("/", (req, res) => {
 
