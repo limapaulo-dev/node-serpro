@@ -38,7 +38,7 @@ app.post("/login", (req, res) => {
     console.log(response)
     console.log(usersDB)
 
-    let userFound = false;
+    let userFound = false
 
     for (let i = 0; i < usersDB.users.length; i++) {
         if(usersDB.users[i].username == response.username && usersDB.users[i].password == response.password){
