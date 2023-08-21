@@ -1,13 +1,43 @@
 const express = require('express');
 const mySQL = require('mysql2');
 
-const mysqlAuthOpt = { host: 'localhost', user: 'root', password: 'mysqlpw'}
+const mysqlAuthOpt = 
+{ 
+    host: 'localhost', 
+    user: 'root', 
+    password: 'mysqlpw', 
+    database: 'node_mysql'
+}
 
 const conn = mySQL.createConnection(mysqlAuthOpt);
+
+const createDB = "CREATE DATABASE IF NOT EXISTS node_mysql";
+const dropDB = "DROP DATABASE";
+
+const createTbAluno = `CREATE TABLE IF NOT EXISTS aluno 
+    (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nome VARCHAR(255),
+    idade INTEGER
+    )`;
 
 conn.connect(err => {
     if(err) throw err
     console.log("DB Conectado")
+
+    conn.query(createDB, (err, result => {
+        if(err) throw err
+        console.log(result)}))
+
+    conn.query(dropDB, (err, result => {
+        if(err) throw err
+        console.log(result)}))   
+        
+    conn.query(createTbAluno, (err, result => {
+        if(err) throw err
+        console.log(result)}))
+
+
 });
 
 const bodyParser = require('body-parser');
