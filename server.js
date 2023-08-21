@@ -7,6 +7,7 @@ const app = express();
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended:false}));
 
+Number("3.14");
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
